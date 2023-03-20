@@ -1,14 +1,15 @@
-[![Build Status](https://github.com/hukkin/cosmospy/workflows/Tests/badge.svg?branch=master)](https://github.com/hukkin/cosmospy/actions?query=workflow%3ATests+branch%3Amaster+event%3Apush)
-[![codecov.io](https://codecov.io/gh/hukkin/cosmospy/branch/master/graph/badge.svg)](https://codecov.io/gh/hukkin/cosmospy)
-[![PyPI version](https://img.shields.io/pypi/v/cosmospy)](https://pypi.org/project/cosmospy)
 
-# cosmospy
+[![PyPI version](https://img.shields.io/pypi/v/icplazapy)](https://pypi.org/project/icplazapy)
 
+# icplazapy
+- forked from [hukkin/cosmospy](https://github.com/hukkin/cosmospy)
+- modified [hukkin/cosmospy](https://github.com/hukkin/cosmospy) to icplazapy
+- icplaza chain is an evmos like chain.
 <!--- Don't edit the version line below manually. Let bump2version do it for you. -->
 
-> Version 6.0.0
+> Version 1.0.0
 
-> Tools for Cosmos wallet management and offline transaction signing
+> Tools for Icplaza wallet management and offline transaction signing
 
 **Table of Contents**  *generated with [mdformat-toc](https://github.com/hukkin/mdformat-toc)*
 
@@ -22,16 +23,20 @@
     - [Private key to public key](#private-key-to-public-key)
     - [Public key to address](#public-key-to-address)
     - [Private key to address](#private-key-to-address)
+    - [Public key to hex address](#public-key-to-hex-address)
+    - [Private key to hex address](#private-key-to-hex-address)
+    - [address from hex address](#address-from-hex-address)
+    - [address to hex address](#address-to-hex-address)
   - [Signing transactions](#signing-transactions)
 
 <!-- mdformat-toc end -->
 
 ## Installing<a name="installing"></a>
 
-Installing from PyPI repository (https://pypi.org/project/cosmospy):
+Installing from PyPI repository (https://pypi.org/project/icplazapy):
 
 ```bash
-pip install cosmospy
+pip install icplazapy
 ```
 
 ## Usage<a name="usage"></a>
@@ -39,7 +44,7 @@ pip install cosmospy
 ### Generating a wallet<a name="generating-a-wallet"></a>
 
 ```python
-from cosmospy import generate_wallet
+from icplazapy import generate_wallet
 
 wallet = generate_wallet()
 ```
@@ -48,11 +53,10 @@ The value assigned to `wallet` will be a dictionary just like:
 
 ```python
 {
-    "seed": "arch skill acquire abuse frown reject front second album pizza hill slogan guess random wonder benefit industry custom green ill moral daring glow elevator",
-    "derivation_path": "m/44'/118'/0'/0/0",
-    "private_key": b"\xbb\xec^\xf6\xdcg\xe6\xb5\x89\xed\x8cG\x05\x03\xdf0:\xc9\x8b \x85\x8a\x14\x12\xd7\xa6a\x01\xcd\xf8\x88\x93",
-    "public_key": b"\x03h\x1d\xae\xa7\x9eO\x8e\xc5\xff\xa3sAw\xe6\xdd\xc9\xb8b\x06\x0eo\xc5a%z\xe3\xff\x1e\xd2\x8e5\xe7",
-    "address": "cosmos1uuhna3psjqfxnw4msrfzsr0g08yuyfxeht0qfh",
+    'seed': 'loan weapon tone clever party picture spot novel almost change rug primary speak entry usage maximum farm beyond magnet crazy later day addict orchard', 
+    'derivation_path': "m/44'/118'/0'/0/0", 
+    'private_key': b'\x06\xe5*di\x88q0\xe4\x08Y\x9aL\xcb\xd7\xc0\xac\xc6\x9d\x9a\x18\xc5$\x00\xacM5\xae\x1b\x07\xe7N', 'public_key': b'\x02Jj\xe8>y\xe0\xcb\xe2\x11oIX@29p\xd3\x1c\x83\xcd\xa4i\xb0\x9e\xd7\x9f!\xf5\xbe\xb7\xe1i', 
+    'address': 'icplaza1ayuhuzmlkw3dr7ftajxcl9kzg4vvzr0ltwpwjl'
 }
 ```
 
@@ -61,7 +65,7 @@ The value assigned to `wallet` will be a dictionary just like:
 #### Mnemonic seed to private key<a name="mnemonic-seed-to-private-key"></a>
 
 ```python
-from cosmospy import BIP32DerivationError, seed_to_privkey
+from icplazapy import BIP32DerivationError, seed_to_privkey
 
 seed = (
     "teach there dream chase fatigue abandon lava super senior artefact close upgrade"
@@ -75,7 +79,7 @@ except BIP32DerivationError:
 #### Private key to public key<a name="private-key-to-public-key"></a>
 
 ```python
-from cosmospy import privkey_to_pubkey
+from icplazapy import privkey_to_pubkey
 
 privkey = bytes.fromhex(
     "6dcd05d7ac71e09d3cf7da666709ebd59362486ff9e99db0e8bc663570515afa"
@@ -86,7 +90,7 @@ pubkey = privkey_to_pubkey(privkey)
 #### Public key to address<a name="public-key-to-address"></a>
 
 ```python
-from cosmospy import pubkey_to_address
+from icplazapy import pubkey_to_address
 
 pubkey = bytes.fromhex(
     "03e8005aad74da5a053602f86e3151d4f3214937863a11299c960c28d3609c4775"
@@ -97,18 +101,50 @@ addr = pubkey_to_address(pubkey)
 #### Private key to address<a name="private-key-to-address"></a>
 
 ```python
-from cosmospy import privkey_to_address
+from icplazapy import privkey_to_address
 
 privkey = bytes.fromhex(
     "6dcd05d7ac71e09d3cf7da666709ebd59362486ff9e99db0e8bc663570515afa"
 )
 addr = privkey_to_address(privkey)
 ```
+#### Public key to hex address<a name="pubkey-to-hex-address"></a>
+
+```python
+from icplazapy import pubkey_to_hex_address
+
+pubkey = bytes.fromhex(
+    "03e8005aad74da5a053602f86e3151d4f3214937863a11299c960c28d3609c4775"
+)
+addr = pubkey_to_address(pubkey)
+```
+#### Private key to hex address<a name="privkey-to-hex-address"></a>
+```python
+from icplazapy import privkey_to_hex_address
+
+privkey = bytes.fromhex(
+    "6dcd05d7ac71e09d3cf7da666709ebd59362486ff9e99db0e8bc663570515afa"
+)
+addr = privkey_to_address(privkey)
+```
+#### address from hex address<a name="address-from-hex-address"></a>
+```python
+from icplazapy import from_hex_address
+hex_addr = "0x4790155804CB6fd0D3697CBb367E75397408a587"
+addr = from_hex_address(hex_addr)
+```
+#### address to hex address<a name="address-to-hex-address"></a>
+```python
+from icplazapy import to_hex_address
+addr = "icplaza1g7gp2kqyedhap5mf0janvln4896q3fv87z2dm6"
+hex_addr = to_hex_address(addr)
+```
+
 
 ### Signing transactions<a name="signing-transactions"></a>
 
 ```python
-from cosmospy import Transaction
+from icplazapy import Transaction
 
 tx = Transaction(
     privkey=bytes.fromhex(
@@ -119,13 +155,13 @@ tx = Transaction(
     fee=1000,
     gas=70000,
     memo="",
-    chain_id="cosmoshub-4",
+    chain_id="icplaza_9000-4",
     sync_mode="sync",
 )
 tx.add_transfer(
-    recipient="cosmos103l758ps7403sd9c0y8j6hrfw4xyl70j4mmwkf", amount=387000
+    recipient="icplaza1g7gp2kqyedhap5mf0janvln4896q3fv87z2dm6", amount=387000
 )
-tx.add_transfer(recipient="cosmos1lzumfk6xvwf9k9rk72mqtztv867xyem393um48", amount=123)
+
 pushable_tx = tx.get_pushable()
 
 
@@ -133,7 +169,8 @@ pushable_tx = tx.get_pushable()
 # This example uses the httpx library.
 import httpx
 
-api_base_url = "https://node.atomscan.com"
+# icplaza rest api
+api_base_url = ""
 httpx.post(api_base_url + "/txs", data=pushable_tx)
 ```
 
