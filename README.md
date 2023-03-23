@@ -7,7 +7,7 @@
 - icplaza chain is an evmos like chain.
 <!--- Don't edit the version line below manually. Let bump2version do it for you. -->
 
-> Version 1.0.0
+> Version 3.0.0
 
 > Tools for Icplaza wallet management and offline transaction signing
 
