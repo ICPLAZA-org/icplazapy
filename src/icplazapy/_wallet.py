@@ -46,7 +46,7 @@ def seed_to_privkey(seed: str, path: str = DEFAULT_DERIVATION_PATH) -> bytes:
     derived_privkey = hd_wallet.get_privkey_from_path(path)
     return derived_privkey
 
-def privkey_to_pubkey(privkey: bytes, comp: bool = True) -> bytes:
+def privkey_to_pubkey(privkey: bytes, comp: bool = False) -> bytes:
     privkey_obj = ecdsa.SigningKey.from_string(privkey, curve=ecdsa.SECP256k1)
     pubkey_obj = privkey_obj.get_verifying_key()
     if comp:
@@ -55,7 +55,7 @@ def privkey_to_pubkey(privkey: bytes, comp: bool = True) -> bytes:
         return pubkey_obj.to_string("uncompressed")
 
 def privkey_to_address(privkey: bytes, *, hrp: str = DEFAULT_BECH32_HRP) -> str:
-    pubkey = privkey_to_pubkey(privkey, comp = True)
+    pubkey = privkey_to_pubkey(privkey)
     return pubkey_to_address(pubkey, hrp=hrp)
 
 def privkey_to_hex_address(privkey:bytes) -> str:
